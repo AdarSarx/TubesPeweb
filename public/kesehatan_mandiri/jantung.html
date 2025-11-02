@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Risiko Jantung (Framingham) - BeHealthy</title>
+  <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+  <div class="container py-5">
+    <div class="card shadow-sm mx-auto border-0" style="max-width: 600px;">
+      <div class="card-body">
+        <h2 class="text-center text-danger mb-4">❤️ Tes Risiko Jantung (Framingham)</h2>
+
+        <form id="heartForm" onsubmit="return false;">
+          <div class="mb-3">
+            <label for="age" class="form-label fw-semibold">Usia (tahun)</label>
+            <input type="number" id="age" class="form-control" min="30" max="79" value="45" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="gender" class="form-label fw-semibold">Jenis Kelamin</label>
+            <select id="gender" class="form-select">
+              <option value="male">Pria</option>
+              <option value="female">Wanita</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="fw-semibold">Apakah kamu tahu ukuran tekanan darah kamu?</label>
+            <div class="d-flex gap-2 mb-2">
+              <button type="button" class="btn btn-outline-primary flex-fill" data-group="bp" data-value="yes">Ya</button>
+              <button type="button" class="btn btn-outline-secondary flex-fill active" data-group="bp" data-value="no">Tidak</button>
+            </div>
+            <div id="bpInputs" class="border rounded p-3 bg-light-subtle d-none">
+              <div class="mb-2">
+                <label for="sbp" class="form-label">Tekanan Darah Sistolik (mmHg)</label>
+                <input type="number" id="sbp" class="form-control" placeholder="Contoh: 120">
+              </div>
+              <div>
+                <label for="treated" class="form-label">Apakah tekanan darah sedang diobati?</label>
+                <select id="treated" class="form-select">
+                  <option value="false">Tidak</option>
+                  <option value="true">Ya</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="fw-semibold">Apakah kamu tahu total kolesterol & HDL (kolesterol baik)?</label>
+            <div class="d-flex gap-2 mb-2">
+              <button type="button" class="btn btn-outline-primary flex-fill" data-group="chol" data-value="yes">Ya</button>
+              <button type="button" class="btn btn-outline-secondary flex-fill active" data-group="chol" data-value="no">Tidak</button>
+            </div>
+            <div id="cholInputs" class="border rounded p-3 bg-light-subtle d-none">
+              <div class="mb-2">
+                <label for="chol" class="form-label">Total Kolesterol (mg/dL)</label>
+                <input type="number" id="chol" class="form-control" placeholder="Contoh: 200">
+              </div>
+              <div>
+                <label for="hdl" class="form-label">HDL (mg/dL)</label>
+                <input type="number" id="hdl" class="form-control" placeholder="Contoh: 50">
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="smoke" class="form-label fw-semibold">Apakah Anda Merokok?</label>
+            <select id="smoke" class="form-select">
+              <option value="false">Tidak</option>
+              <option value="true">Ya</option>
+            </select>
+          </div>
+
+          <div class="mb-4">
+            <label for="diabetes" class="form-label fw-semibold">Apakah Anda Diabetes?</label>
+            <select id="diabetes" class="form-select">
+              <option value="false">Tidak</option>
+              <option value="true">Ya</option>
+            </select>
+          </div>
+
+          <div class="d-grid gap-2">
+            <button type="button" class="btn btn-danger" onclick="calculateHeartRisk()">Lihat Hasil</button>
+            <button type="reset" class="btn btn-outline-secondary" onclick="resetForm()">Reset</button>
+          </div>
+        </form>
+
+        <div id="result" class="mt-4 text-center"></div>
+
+        <div class="text-center mt-4">
+          <button class="btn btn-outline-dark w-100" onclick="window.location.href='/public/kesehatan_mandiri/kesehatan.html'">Kembali ke Beranda</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  const DEFAULTS = { sbp:120, treated:false, chol:200, hdl:50 };
+
+  // Tombol ya/tidak dinamis
+  document.querySelectorAll("[data-group]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const group = btn.getAttribute("data-group");
+      const value = btn.getAttribute("data-value");
+      document.querySelectorAll(`[data-group='${group}']`).forEach(b => b.classList.remove("active","btn-primary","btn-outline-primary","btn-outline-secondary"));
+      btn.classList.add("active","btn-primary");
+      document.getElementById(group + "Inputs").classList.toggle("d-none", value !== "yes");
+    });
+  });
+
+  function resetForm() {
+    document.getElementById("result").innerHTML = "";
+    document.querySelectorAll("#bpInputs, #cholInputs").forEach(el => el.classList.add("d-none"));
+    document.querySelectorAll("[data-group]").forEach(b => b.classList.remove("active","btn-primary"));
+  }
+
+  function calculateHeartRisk() {
+    const age = parseFloat(document.getElementById("age").value) || 45;
+    const gender = document.getElementById("gender").value === "male" ? "male" : "female";
+
+    const bpYes = document.querySelector("[data-group='bp'].active")?.getAttribute("data-value") === "yes";
+    const sbp = bpYes ? (parseFloat(document.getElementById("sbp").value) || DEFAULTS.sbp) : DEFAULTS.sbp;
+    const treated = bpYes ? (document.getElementById("treated").value === "true") : DEFAULTS.treated;
+
+    const cholYes = document.querySelector("[data-group='chol'].active")?.getAttribute("data-value") === "yes";
+    const chol = cholYes ? (parseFloat(document.getElementById("chol").value) || DEFAULTS.chol) : DEFAULTS.chol;
+    const hdl = cholYes ? (parseFloat(document.getElementById("hdl").value) || DEFAULTS.hdl) : DEFAULTS.hdl;
+
+    const smoke = document.getElementById("smoke").value === "true";
+    const diabetes = document.getElementById("diabetes").value === "true";
+
+    let L, meanL, S0;
+    if (gender === "male") {
+      L = 3.06117*Math.log(age) + 1.1237*Math.log(chol) - 0.93263*Math.log(hdl)
+          + (treated ? 1.99881*Math.log(sbp) : 1.93303*Math.log(sbp))
+          + (smoke ? 0.65451 : 0) + (diabetes ? 0.57367 : 0);
+      meanL = 23.9802; S0 = 0.88936;
+    } else {
+      L = 2.32888*Math.log(age) + 1.20904*Math.log(chol) - 0.70833*Math.log(hdl)
+          + (treated ? 2.82263*Math.log(sbp) : 2.76157*Math.log(sbp))
+          + (smoke ? 0.52873 : 0) + (diabetes ? 0.69154 : 0);
+      meanL = 26.1931; S0 = 0.95012;
+    }
+
+    const risk = 1 - Math.pow(S0, Math.exp(L - meanL));
+    const riskPercent = Math.max(0, Math.min(100, risk * 100));
+
+    let kategori, warna;
+    if (riskPercent < 10) { kategori = "Rendah (<10%)"; warna = "success"; }
+    else if (riskPercent < 20) { kategori = "Sedang (10–20%)"; warna = "warning"; }
+    else { kategori = "Tinggi (≥20%)"; warna = "danger"; }
+
+    document.getElementById("result").innerHTML = `
+      <div class="alert alert-${warna}">
+        <h4 class="mb-1">Risiko Penyakit Jantung 10 Tahun:</h4>
+        <h3 class="fw-bold">${riskPercent.toFixed(1)}%</h3>
+        <p class="mb-1">Kategori: <strong>${kategori}</strong></p>
+      </div>
+      <div class="progress" style="height:10px;">
+        <div class="progress-bar bg-${warna}" style="width:${Math.min(riskPercent,100)}%"></div>
+      </div>
+      <p class="mt-2 text-secondary small">Perhitungan berdasarkan Framingham Heart Study. Hasil bersifat estimasi — konsultasikan ke tenaga kesehatan untuk evaluasi lengkap.</p>
+    `;
+  }
+  </script>
+
+  <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

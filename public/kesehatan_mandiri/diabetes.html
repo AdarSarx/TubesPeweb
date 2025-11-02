@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tes Risiko Diabetes (FINDRISC)</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+  <div class="container py-5">
+    <div class="card shadow-sm mx-auto" style="max-width: 600px;">
+      <div class="card-body">
+        <h2 class="text-center mb-4 text-primary">💉 Tes Risiko Diabetes (FINDRISC)</h2>
+
+        <form id="diabetesForm" class="mb-3">
+          <div class="mb-3">
+            <label class="form-label">Usia:</label>
+            <select id="age" class="form-select">
+              <option value="0">&lt;45</option>
+              <option value="2">45–54</option>
+              <option value="3">55–64</option>
+              <option value="4">&gt;64</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Indeks Massa Tubuh (BMI):</label>
+            <select id="bmi" class="form-select">
+              <option value="0">&lt;25</option>
+              <option value="1">25–30</option>
+              <option value="3">&gt;30</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Lingkar Pinggang:</label>
+            <select id="waist" class="form-select">
+              <option value="0">Pria &lt;94 cm / Wanita &lt;80 cm</option>
+              <option value="3">Pria 94–102 cm / Wanita 80–88 cm</option>
+              <option value="4">Pria &gt;102 cm / Wanita &gt;88 cm</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Aktivitas fisik ≥30 menit per hari:</label>
+            <select id="activity" class="form-select">
+              <option value="0">Ya</option>
+              <option value="2">Tidak</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Konsumsi sayur & buah setiap hari:</label>
+            <select id="diet" class="form-select">
+              <option value="0">Ya</option>
+              <option value="1">Tidak</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Apakah Anda pernah diberitahu tekanan darah tinggi?</label>
+            <select id="bp" class="form-select">
+              <option value="0">Tidak</option>
+              <option value="2">Ya</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Apakah pernah didiagnosis kadar glukosa tinggi?</label>
+            <select id="glucose" class="form-select">
+              <option value="0">Tidak</option>
+              <option value="5">Ya</option>
+            </select>
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label">Apakah ada keluarga dengan diabetes?</label>
+            <select id="family" class="form-select">
+              <option value="0">Tidak</option>
+              <option value="3">Keluarga tingkat dua</option>
+              <option value="5">Keluarga tingkat satu</option>
+            </select>
+          </div>
+
+          <div class="d-grid gap-2">
+            <button type="button" id="calculateBtn" class="btn btn-primary">Lihat Hasil</button>
+            <button type="reset" class="btn btn-danger">Reset</button>
+            <button type="button" class="btn btn-outline-dark" onclick="window.location.href='/public/kesehatan_mandiri/kesehatan.html'">Kembali ke Beranda</button>
+          </div>
+        </form>
+
+        <div id="result" class="mt-4 text-center"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.getElementById("calculateBtn").addEventListener("click", calculateDiabetesRisk);
+
+    function calculateDiabetesRisk() {
+      const fields = ["age", "bmi", "waist", "activity", "diet", "bp", "glucose", "family"];
+      let total = 0;
+      fields.forEach(f => total += parseInt(document.getElementById(f).value));
+
+      let kategori, warna;
+      if (total < 7) { kategori = "Risiko rendah (1/100)"; warna = "success"; }
+      else if (total <= 11) { kategori = "Sedikit meningkat (1/25)"; warna = "info"; }
+      else if (total <= 14) { kategori = "Sedang (1/6)"; warna = "warning"; }
+      else if (total <= 20) { kategori = "Tinggi (1/3)"; warna = "danger"; }
+      else { kategori = "Sangat tinggi (1/2)"; warna = "dark"; }
+
+      const riskPercent = Math.min(total / 26 * 100, 100).toFixed(1);
+
+      document.getElementById("result").innerHTML = `
+        <div class="alert alert-${warna}">
+          <h4 class="mb-2">${kategori}</h4>
+          <p>Skor Anda: <b>${total}</b> (Model: FINDRISC)</p>
+        </div>
+        <div class="progress" style="height: 20px;">
+          <div class="progress-bar bg-${warna}" role="progressbar" style="width: ${riskPercent}%">
+            ${riskPercent}%
+          </div>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>

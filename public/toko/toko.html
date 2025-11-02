@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toko Obat</title>
+  <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light d-flex flex-column min-vh-100">
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg sticky-top bg-primary-subtle navbar-dark py-1">
+    <div class="container">
+        <a href="javascript:history.back()" class="btn btn-outline-primary bi bi-arrow-90deg-lrigh">Kembali</a>
+        <a class="navbar-brand fw-bold" href="/public/index.html"><img src="/public/foto/logo.png" class="image-fluid mx-5" style="width: 70px;" alt="beranda"></a>
+        <div class="d-flex ms-auto w-50">
+            <input id="searchInput" class="form-control" type="search" placeholder="Cari obat, vitamin, atau suplemen...">
+        </div>
+        <ul class="navbar-nav ms-4">
+            <li class="nav-item">
+            <a class="btn btn-outline-primary bi bi-arrow-90deg-left" href="cart.html">Keranjang</a>
+            </li>
+        </ul>
+    </div>
+  </nav>
+
+  <!-- Section Kategori -->
+  <section class="container mt-4">
+    <h4 class="fw-bold mb-3">Belanja Sesuai Kategori</h4>
+    <div id="category-buttons" class="d-flex flex-wrap gap-2 mb-4">
+      <button class="btn btn-outline-primary category-btn active" data-category="">Semua</button>
+      <button class="btn btn-outline-primary category-btn" data-category="vitamin">Vitamin & Suplemen</button>
+      <button class="btn btn-outline-primary category-btn" data-category="obat-bebas">Obat Bebas</button>
+      <button class="btn btn-outline-primary category-btn" data-category="perawatan">Perawatan Tubuh</button>
+      <button class="btn btn-outline-primary category-btn" data-category="alat-kesehatan">Alat Kesehatan</button>
+    </div>
+  </section>
+
+  <!-- Section Produk -->
+  <section class="container mb-2">
+    <div id="product-list" class="row">
+      <!-- Kartu produk di-render JS -->
+    </div>
+    <!-- Footer Keranjang Terapung (diisi oleh JS) -->
+    <div id="cartFooter" class="d-flex justify-content-center">
+      <div class="d-flex align-items-center bg-white rounded p-3 shadow-lg p-3 mb-4">
+          <div class="text-end me-3">
+              <div><strong>Perkiraan Total</strong></div>
+              <div class="fw-bold fs-5 text-success">Rp <span id="cartTotal">0</span></div>
+          </div>
+          <button class="btn btn-outline-success" onclick="window.location.href='cart.html'">Lihat Keranjang</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center py-4 bg-primary-subtle text-black">
+    <small>@BeHealthy</small>
+  </footer>
+
+  <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/routes/toko.js"></script>
+  <script src="/routes/produk2.js"></script>
+</body>
+</html>

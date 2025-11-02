@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kalkulator BMI - BeHealthy</title>
+  <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+  <div class="container py-5">
+    <div class="card shadow-sm mx-auto" style="max-width: 500px;">
+      <div class="card-body">
+        <h2 class="text-center mb-4 text-primary">⚖️ Kalkulator BMI</h2>
+
+        <!-- Form BMI -->
+        <form id="bmiForm" class="mb-3">
+          <div class="mb-3">
+            <label for="berat" class="form-label fw-semibold">Masukkan Berat Badan (kg)</label>
+            <input type="number" id="berat" class="form-control" placeholder="Contoh: 60" required>
+          </div>
+
+          <div class="mb-4">
+            <label for="tinggi" class="form-label fw-semibold">Masukkan Tinggi Badan (cm)</label>
+            <input type="number" id="tinggi" class="form-control" placeholder="Contoh: 170" required>
+          </div>
+
+          <div class="d-flex gap-2">
+            <button type="button" class="btn btn-primary flex-fill" onclick="hitungBMI()">Hitung BMI</button>
+            <button type="button" class="btn btn-secondary flex-fill" onclick="resetForm()">Reset</button>
+          </div>
+        </form>
+
+        <!-- Hasil -->
+        <div id="result" class="text-center mt-4"></div>
+
+        <!-- Tombol kembali -->
+        <div class="text-center mt-4">
+          <button class="btn btn-outline-secondary w-100" onclick="window.location.href='/public/kesehatan_mandiri/kesehatan.html'">Kembali ke Beranda</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function hitungBMI() {
+      const berat = parseFloat(document.getElementById('berat').value);
+      const tinggi = parseFloat(document.getElementById('tinggi').value) / 100;
+
+      if (!berat || !tinggi) {
+        alert("Masukkan berat dan tinggi badan dengan benar!");
+        return;
+      }
+
+      const bmi = berat / (tinggi * tinggi);
+      let kategori, warna, deskripsi;
+
+      if (bmi < 18.5) {
+        kategori = "Kurus"; warna = "info";
+        deskripsi = "Anda kekurangan berat badan. Coba tingkatkan asupan nutrisi.";
+      } else if (bmi < 25) {
+        kategori = "Normal"; warna = "success";
+        deskripsi = "Berat badan Anda ideal. Pertahankan gaya hidup sehat.";
+      } else if (bmi < 30) {
+        kategori = "Berlebih"; warna = "warning";
+        deskripsi = "Berat badan berlebih, pertimbangkan olahraga rutin.";
+      } else {
+        kategori = "Obesitas"; warna = "danger";
+        deskripsi = "Risiko kesehatan meningkat. Konsultasikan dengan dokter.";
+      }
+
+      // Menampilkan hasil
+      document.getElementById("result").innerHTML = `
+        <div class="alert alert-${warna}">
+          <h4 class="mb-2">BMI Anda: ${bmi.toFixed(1)}</h4>
+          <h5 class="fw-bold">Kategori: ${kategori}</h5>
+          <p class="mb-1">${deskripsi}</p>
+        </div>
+        <div class="progress mb-2" style="height: 15px;">
+          <div class="progress-bar bg-${warna}" role="progressbar"
+               style="width: ${Math.min((bmi / 40) * 100, 100)}%"></div>
+        </div>
+      `;
+    }
+
+    function resetForm() {
+      document.getElementById('bmiForm').reset();
+      document.getElementById('result').innerHTML = '';
+    }
+  </script>
+
+  <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

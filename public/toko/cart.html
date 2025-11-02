@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/public/css/style.css">
+</head>
+<body>
+    <main>
+        
+        <div class="container my-5">
+            <a href="javascript:history.back()" class="btn btn-outline-primary">Kembali</a>
+            <h2 class="text-center mb-4">Keranjang Belanja Anda</h2>
+            <div class="row">
+                <div class="col-lg-8">
+                <!-- Daftar Item Keranjang (diisi oleh JS) -->
+                <div id="cartItems">
+                    <!-- Item keranjang akan di-render oleh JavaScript di sini -->
+                </div>
+                </div>
+                <div class="col-lg-4">
+                <!-- Ringkasan Belanja -->
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                    <h5 class="card-title">Ringkasan Belanja</h5>
+                    <hr>
+                    <div class="d-flex justify-content-between mb-3">
+                        <span>Total Harga</span>
+                        <span class="fw-bold fs-5">Rp <span id="cartTotal">0</span></span>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button id="checkoutBtn" class="btn btn-accent">Lanjutkan ke Checkout</button>
+                        <button id="clearCartBtn" class="btn btn-outline-danger">Kosongkan Keranjang</button>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+  <script src="/routes/cart.js"></script>
+  <script src="/routes/produk2.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,114 @@
+:root {
+  --primary: #00A8E8;   /* Cyan Blue */
+  --secondary: #007EA7; /* Deep Blue */
+  --accent: #17C3B2;    /* Teal Mint */
+  --neutral: #F4F4F9;   /* Soft Gray White */
+  --text: #222831;      /* Almost Black */
+}
+
+/* 🌤️ Global style */
+
+/* PERBAIKAN #1: Aturan untuk Sticky Footer */
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--neutral);
+  color: var(--text);
+  font-family: "Poppins", sans-serif;
+}
+
+main {
+  flex-grow: 1; /* Mendorong footer ke bawah, mengisi ruang yang tersedia */
+}
+
+/* 🧭 Navbar */
+
+
+
+
+/* 🏷️ Kategori tombol */
+.category-btn {
+  background-color: white;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  transition: all 0.3s;
+}
+
+.category-btn:hover,
+.category-btn.active {
+  background-color: var(--primary);
+  color: white;
+}
+
+/* 🛍️ Kartu produk */
+.card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* PERBAIKAN #6: Styling untuk gambar agar tidak terpotong */
+.card-img-top {
+  border-radius: 10px 10px 0 0;
+  object-fit: contain; /* Memastikan seluruh gambar terlihat */
+  height: 160px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+#prodImage {
+  max-height: 400px;
+  object-fit: contain; /* Memastikan seluruh gambar terlihat */
+}
+
+.cart-item-img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain; /* Memastikan seluruh gambar terlihat */
+  margin-right: 15px;
+}
+
+.card-title {
+  cursor: pointer;
+}
+
+.product-info {
+  white-space: pre-wrap;
+}
+
+/* ➕ Tombol tambah dan kontrol jumlah */
+.btn-accent {
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  transition: background-color 0.2s ease;
+}
+
+.btn-accent:hover {
+  background-color: var(--secondary);
+}
+
+/* 🛒 Footer keranjang */
+#cartFooter {
+  display: none; /* Dikelola oleh JS */
+  background-color: white;
+  border-top: 2px solid var(--primary);
+  padding: 15px 30px;
+  position: fixed; /* Menggunakan fixed agar selalu terlihat saat scroll */
+  bottom: 0;
+  width: 100%;
+  justify-content: flex-end; /* Memindahkan konten ke kanan */
+  align-items: center;
+  box-shadow: 0 -2px 6px rgba(0,0,0,0.1);
+  z-index: 1000;
+}

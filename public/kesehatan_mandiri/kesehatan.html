@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cek Kesehatan Mandiri - BeHealthy</title>
+  <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary bg-primary-subtle fixed-top">
+        <div class="container-fluid">
+            <img src="/public/foto/logo.png" alt="foto" class="image-fluid mx-5" style="width: 70px;" id="beranda"/>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link me-4 fs-5" href="#beranda" onclick="window.location.href='/public/index.html'">Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link me-4 fs-5" href="#about" onclick="window.location.href='/public/index.html'">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link me-4 fs-5" href="#contact" onclick="window.location.href='/public/index.html'">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link me-4 fs-5" href="#toko" onclick="window.location.href='/public/toko/toko.html'">Toko Obat</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fs-5" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Lainnya</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#konsultasi" onclick="window.location.href='/public/forum.html'">Forum Konsultasi</a></li>
+                            <li><a class="dropdown-item" href="#KesehatanMandiri">Cek Kesehatan Mandiri</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <button class="btn btn-outline-primary px-4 me-5 " type="login">login</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+  <!-- Hero Section -->
+  <section class="py-5 text-center bg-white shadow-sm mt-5 pt-5 ">
+    <div class="container mt-5">
+      <h1 class="fw-bold mb-3 text-primary">Selamat Datang di BeHealthy!</h1>
+      <p class="lead text-muted mb-4">
+        Cek kondisi kesehatan Anda secara mandiri menggunakan fitur interaktif kami.  
+        Dapatkan hasil cepat dan rekomendasi awal sebelum konsultasi dengan dokter.
+      </p>
+      <a href="stress.html" class="btn btn-primary btn-lg px-4">Mulai Sekarang</a>
+    </div>
+  </section>
+
+  <!-- Fitur Cards -->
+  <section class="container my-5">
+    <div class="text-center mb-4">
+      <h2 class="fw-bold">Pilih Fitur Kesehatan</h2>
+      <p class="text-muted">Klik salah satu fitur di bawah untuk memulai pemeriksaan</p>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-4 col-lg-3">
+        <div class="card h-100 text-center shadow-sm">
+          <div class="card-body">
+            <div class="display-4 mb-3">🧠</div>
+            <h5 class="card-title">Tes Stres</h5>
+            <p class="card-text small text-muted">Ukur tingkat stres Anda dengan cepat dan mudah.</p>
+            <a href="stress.html" class="btn btn-outline-primary btn-sm">Mulai Tes</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-lg-3">
+        <div class="card h-100 text-center shadow-sm">
+          <div class="card-body">
+            <div class="display-4 mb-3">😔</div>
+            <h5 class="card-title">Tes Depresi</h5>
+            <p class="card-text small text-muted">Evaluasi kondisi emosional dan keseimbangan mental Anda.</p>
+            <a href="depresi.html" class="btn btn-outline-primary btn-sm">Mulai Tes</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-lg-3">
+        <div class="card h-100 text-center shadow-sm">
+          <div class="card-body">
+            <div class="display-4 mb-3">⚖️</div>
+            <h5 class="card-title">Kalkulator BMI</h5>
+            <p class="card-text small text-muted">Ketahui apakah berat badan Anda ideal atau tidak.</p>
+            <a href="bmi.html" class="btn btn-outline-primary btn-sm">Hitung Sekarang</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-lg-3">
+        <div class="card h-100 text-center shadow-sm">
+          <div class="card-body">
+            <div class="display-4 mb-3">❤️</div>
+            <h5 class="card-title">Risiko Jantung</h5>
+            <p class="card-text small text-muted">Perkirakan risiko penyakit jantung Anda.</p>
+            <a href="jantung.html" class="btn btn-outline-primary btn-sm">Cek Risiko</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-lg-3">
+        <div class="card h-100 text-center shadow-sm">
+          <div class="card-body">
+            <div class="display-4 mb-3">💉</div>
+            <h5 class="card-title">Risiko Diabetes</h5>
+            <p class="card-text small text-muted">Lihat apakah Anda berisiko terkena diabetes.</p>
+            <a href="diabetes.html" class="btn btn-outline-primary btn-sm">Cek Risiko</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center py-4 bg-primary-subtle text-black">
+    <small>@BeHealthy | Cek kesehatan mandiri dengan mudah</small>
+  </footer>
+
+  <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
