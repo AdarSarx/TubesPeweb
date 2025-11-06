@@ -71,10 +71,10 @@ document.addEventListener("DOMContentLoaded", () => {
             col.innerHTML = `
             <div class="card p-2 h-100 shadow-sm">
                 <img src="../foto/${prod.image}" 
-                    class="card-img-top clickable w-100 object-fit-cover" 
+                    class="card-img-top clickable w-100" 
                     alt="${prod.name}" 
                     data-id="${prod.id}" 
-                    style="height: 200px; border-radius: 8px; object-fit: cover;" 
+                    style="height: 150px;"
                     loading="lazy">
                 <div class="card-body text-center d-flex flex-column">
                     <h6 class="card-title clickable flex-grow-1" data-id="${prod.id}">${prod.name}</h6>

@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
                   <div class="d-flex align-items-center justify-content-between">
                     <div class="d-flex align-items-center">
                       <!-- PERBAIKAN #6: Menggunakan class 'cart-item-img' dari style.css -->
-                      <img src="../images/${product.image}" alt="${product.name}" class="cart-item-img rounded">
+                      <img src="../foto/${product.image}" alt="${product.name}" class="cart-item-img rounded">
                       <div>
                         <h6>${product.name}</h6>
                         <p class="mb-1 text-success fw-bold">Rp ${product.price.toLocaleString('id-ID')}</p>
