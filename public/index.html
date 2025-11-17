@@ -9,7 +9,7 @@
 <body class="d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-lg bg-body-tertiary bg-primary-subtle fixed-top">
         <div class="container-fluid">
-            <img src="../public/foto/logo.png" alt="foto" class="image-fluid mx-5" style="width: 70px;" id="beranda"/>
+            <img src="/foto/logo.png" alt="foto" class="image-fluid mx-5" style="width: 70px;" id="beranda"/>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
@@ -25,19 +25,20 @@
                         <a class="nav-link me-4 fs-5" href="#contact">Contact</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link me-4 fs-5" href="#toko" onclick="window.location.href='../public/toko/toko.html'">Toko Obat</a>
+                        <a class="nav-link me-4 fs-5" href="/toko">Toko Obat</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle fs-5" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Lainnya</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#konsultasi" onclick="window.location.href='../public/forum.html'">Forum Konsultasi</a></li>
-                            <li><a class="dropdown-item" href="#KesehatanMandiri" onclick="window.location.href='../public/kesehatan_mandiri/kesehatan.html'">Cek Kesehatan Mandiri</a></li>
+                            <li><a class="dropdown-item" href="/forum">Forum Konsultasi</a></li>
+                            <li><a class="dropdown-item" href="/kesehatan">Cek Kesehatan Mandiri</a></li>
                         </ul>
                     </li>
                 </ul>
-                <form class="d-flex" role="search">
-                    <button class="btn btn-outline-primary px-4 me-5 " type="login">login</button>
-                </form>
+                <div id="authArea" class="d-flex">
+                    <a class="btn btn-outline-primary px-4 me-2" href="login.html">Masuk</a>
+                    <a class="btn btn-primary px-4 me-5 text-white" href="register.html">Daftar</a>
+                </div>
             </div>
         </div>
     </nav>
@@ -57,7 +58,7 @@
         <!-- Card 1 -->
         <div class="col-md-3 d-flex justify-content-center mb-4">
         <div class="card" style="width: 18rem;">
-            <img src="../public/foto/foto1.jpg" class="card-img-top" alt="foto1">
+            <img src="/foto/foto1.jpg" class="card-img-top" alt="foto1">
             <div class="card-body">
             <h5 class="card-title">Card 1</h5>
             <p class="card-text">Deskripsi card 1 di sisi kiri.</p>
@@ -69,7 +70,7 @@
         <!-- Card 2 -->
         <div class="col-md-3 d-flex justify-content-center mb-4">
         <div class="card" style="width: 18rem;">
-            <img src="../public/foto/foto2.jpg" class="card-img-top" alt="foto2">
+            <img src="/foto/foto2.jpg" class="card-img-top" alt="foto2">
             <div class="card-body">
             <h5 class="card-title">Card 2</h5>
             <p class="card-text">Deskripsi card 2 di tengah.</p>
@@ -81,7 +82,7 @@
         <!-- Card 3 -->
         <div class="col-md-3 d-flex justify-content-center mb-4">
         <div class="card" style="width: 18rem;">
-            <img src="../public/foto/foto1.jpg" class="card-img-top" alt="foto3">
+            <img src="/foto/foto1.jpg" class="card-img-top" alt="foto3">
             <div class="card-body">
             <h5 class="card-title">Card 3</h5>
             <p class="card-text">Deskripsi card 3 di sisi kanan.</p>
@@ -93,7 +94,7 @@
         <!-- Card 4 -->
         <div class="col-md-3 d-flex justify-content-center mb-4">
         <div class="card" style="width: 18rem;">
-            <img src="../public/foto/foto2.jpg" class="card-img-top" alt="foto4">
+            <img src="/foto/foto2.jpg" class="card-img-top" alt="foto4">
             <div class="card-body">
             <h5 class="card-title">Card 4</h5>
             <p class="card-text">Deskripsi card 4 tambahan.</p>
@@ -111,7 +112,7 @@
             <div class="row align-items-center">
             
             <div class="col-md-5 mb-4 mb-md-0">
-                <img src="../public/foto/logo.png" alt="Tentang BeHealthy" class="img-fluid rounded shadow">
+                <img src="/foto/logo.png" alt="Tentang BeHealthy" class="img-fluid rounded shadow">
             </div>
 
             <div class="col-md-6">
@@ -199,6 +200,32 @@
             });
         });
 </script>
-    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+            <script>
+                // update navbar auth area berdasarkan session
+                document.addEventListener('DOMContentLoaded', async () => {
+                    try {
+                        const res = await fetch('/api/session');
+                        if (!res.ok) return;
+                        const data = await res.json();
+                        const authArea = document.getElementById('authArea');
+                        if (!authArea) return;
+                        if (data && data.user) {
+                            // tampilkan nama dan tombol logout
+                            authArea.innerHTML = `
+                                <div class="d-flex align-items-center me-3">
+                                    <span class="me-3">Halo, ${data.user.name}</span>
+                                    <a class="btn btn-outline-danger btn-sm me-2" href="/logout">Logout</a>
+                                </div>
+                            `;
+                        } else {
+                            // default: sudah ada link Masuk/Daftar di HTML - tidak perlu ubah
+                        }
+                    } catch (err) {
+                        // ignore silently
+                        console.error('session check failed', err);
+                    }
+                });
+            </script>
+    <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -12,6 +12,8 @@
   "dependencies": {
     "bootstrap": "^5.3.8",
     "express": "^5.1.0",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "express-session": "^1.17.3",
+    "bcryptjs": "^2.4.3"
   }
 }

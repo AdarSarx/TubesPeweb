@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Mengisi kontainer kosong dengan seluruh struktur detail produk
         contentContainer.innerHTML = `
             <div class="col-md-5 text-center">
-                <img id="prodImage" src="../public/foto/${product.image}" class="img-fluid rounded" alt="${product.name}">
+                <img id="prodImage" src="/foto/${product.image}" class="img-fluid rounded" alt="${product.name}">
             </div>
             <div class="col-md-7">
                 <h2 id="prodName">${product.name}</h2>
